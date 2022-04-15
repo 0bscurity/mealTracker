@@ -1,5 +1,5 @@
 import pandas as pd
-#import GUI
+import GUI
 
 
 def get_data():
@@ -14,7 +14,7 @@ def search(column, query):
     df = get_data()
     print(column, query)
 
-    matches = df.loc[df[column].str.contains(query, case=False)]
+    matches = df.loc[df[column].astype(str).str.contains(query, case=False)]
     #matches = df.loc[df[column].isin([query])]
     #matches = df.loc[df[column] == query]
 
@@ -42,11 +42,17 @@ def cmd_add():
     pass
 
 
-selection = input(f"* 1 - Add a meal \n* 2 - Search for a meal\n* 3 - Exit\n -- ")
+def startup_options():
+    selection = input(f"\n* 1 - Search for a meal\n* 2 - Add a meal\n* 3 - Exit\n -- ")
 
-if selection == "1":
-    cmd_add()
-elif selection == "2":
-    cmd_search()
-elif selection == "3":
-    exit()
+    if selection == "1":
+        cmd_search()
+        startup_options()
+    elif selection == "2":
+        cmd_add()
+        startup_options()
+    elif selection == "3":
+        exit()
+
+
+#startup_options()

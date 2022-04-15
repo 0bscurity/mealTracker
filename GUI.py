@@ -18,7 +18,7 @@ def search_button():
 
 
 root = tk.Tk()
-root.geometry("1200x700")
+root.geometry("1500x700")
 root.title("Meal Planner")
 
 # Displays all data on right side of GUI
