@@ -44,7 +44,8 @@ radio_input = tk.StringVar(root, "dish")
 columns = {"Dish": "dish",
            "Difficulty": "difficulty",
            "Price": "price",
-           "Tags": "tags"}
+           "Tags": "tags",
+           "Links": "links"}
 
 for (text, column) in columns.items():
     tk.Radiobutton(root, text=text, variable=radio_input,

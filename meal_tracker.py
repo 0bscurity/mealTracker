@@ -1,5 +1,5 @@
 import pandas as pd
-#import GUI
+# import GUI
 
 
 def get_data():
@@ -13,6 +13,8 @@ def get_data():
 def search(column, query):
     df = get_data()
 
+    column = column.capitalize()
+
     search_terms = query.split(",")
     search_terms = [x.strip(' ') for x in search_terms]
 
@@ -24,13 +26,9 @@ def search(column, query):
     return matches
 
 
-def add_dish():
-    user_input = input("")
-
-
 # -------------------------- Command Line Code ----------------------------
 
-def cmd_search():
+def cli_search():
     df = get_data()
 
     print(df.columns.values)
@@ -41,36 +39,38 @@ def cmd_search():
     search(col_search_input, row_search_input)
 
 
-def cmd_add():
+def cli_add():
     df = get_data()
 
-    new_dish = []
-
-    columns = df.columns.values
-
-    for column in columns:
-        user_input = input(f"{column} - ")
-        user_input = user_input.split(",")
-        user_input = [x.strip(' ') for x in user_input]
-        new_dish.append(user_input)
-
-
+    new_dish = {'dish': input("Dish - "),
+                'difficulty': input("Difficulty - "),
+                'price': input("Price - "),
+                'tags': [input("Tags - ")],
+                'Link': input("Link - ")
+                }
 
     df.loc[len(df)] = new_dish
 
     print(df)
 
 
-def startup_options():
+def edit():
+    df = get_data()
+
+
+
+
+def cli_startup():
     selection = input(f"\n* 1 - Search for a meal\n* 2 - Add a meal\n* 3 - Exit\n -- ")
 
     if selection == "1":
-        cmd_search()
-        startup_options()
+        cli_search()
+        cli_startup()
     elif selection == "2":
-        cmd_add()
-        startup_options()
+        cli_add()
+        cli_startup()
     elif selection == "3":
         exit()
 
-startup_options()
+
+cli_startup()
