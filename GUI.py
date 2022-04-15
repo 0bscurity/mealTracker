@@ -4,11 +4,16 @@ import meal_tracker
 
 
 def search_button():
-    query = user_input.get()
-    print(query)
+    search_input = user_input.get()
+    search_terms = search_input.split(",")
+    search_terms = [x.strip(' ') for x in search_terms]
+
+    print(search_terms)
+    column = search_terms[0]
+    query = search_terms[1]
 
     search_results = tk.Text(root, height=20, width=70)
-    search_results.insert(tk.END, meal_tracker.search(column="tags", query=query))
+    search_results.insert(tk.END, meal_tracker.search(column=column, query=query))
     search_results.grid(row=1, column=4)
 
 
