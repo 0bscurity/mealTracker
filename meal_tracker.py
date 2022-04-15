@@ -1,5 +1,5 @@
 import pandas as pd
-import GUI
+#import GUI
 
 
 def get_data():
@@ -10,13 +10,16 @@ def get_data():
     return imported_data
 
 
-def search(column, query):
+def search(query):
     df = get_data()
-    print(column, query)
 
-    matches = df.loc[df[column].astype(str).str.contains(query, case=False)]
-    #matches = df.loc[df[column].isin([query])]
-    #matches = df.loc[df[column] == query]
+    search_terms = query.split(",")
+    search_terms = [x.strip(' ') for x in search_terms]
+
+    column = search_terms[0]
+    query = [x for x in search_terms[1:]]
+
+    matches = df.loc[(df[column].astype(str).str.contains('|'.join(query), case=False))]
 
     print(matches)
     return matches
@@ -26,20 +29,32 @@ def add_dish():
     user_input = input("")
 
 
-# Command Line
+# -------------------------- Command Line Code ----------------------------
+
 def cmd_search():
     df = get_data()
 
     print(df.columns.values)
 
-    search_col = input("Enter search column - ")
-    search_row = input("Enter search term - ")
+    search_input = input("Enter search terms [column, value(s)] - ")
 
-    search(search_col, search_row)
+    search(search_input)
 
 
 def cmd_add():
-    pass
+    df = get_data()
+
+    new_dish = []
+
+    columns = df.columns.values
+
+    for column in columns:
+        user_input = input(f"{column} - ")
+        user_input = user_input.split(",")
+        user_input = [x.strip(' ') for x in user_input]
+        new_dish.append(user_input)
+
+    print(new_dish)
 
 
 def startup_options():
@@ -54,5 +69,4 @@ def startup_options():
     elif selection == "3":
         exit()
 
-
-#startup_options()
+startup_options()

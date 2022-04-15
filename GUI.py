@@ -1,19 +1,16 @@
 import tkinter as tk
 
+import pandas as pd
+
 import meal_tracker
 
 
+# Gets user input and passes it to the search function
 def search_button():
     search_input = user_input.get()
-    search_terms = search_input.split(",")
-    search_terms = [x.strip(' ') for x in search_terms]
-
-    print(search_terms)
-    column = search_terms[0]
-    query = search_terms[1]
 
     search_results = tk.Text(root, height=20, width=70)
-    search_results.insert(tk.END, meal_tracker.search(column=column, query=query))
+    search_results.insert(tk.END, meal_tracker.search(query=search_input))
     search_results.grid(row=1, column=4)
 
 
@@ -32,7 +29,7 @@ l = tk.Label(root, textvariable=label_text, height=2)
 # Search bar + label
 user_input = tk.StringVar()
 
-search_label = tk.Label(root, text='Search Dataframe', font=('calibre', 10, 'bold'))
+search_label = tk.Label(root, text='Search Dataframe\nUse column, value(s)', font=('calibre', 10, 'bold'))
 
 search_bar = tk.Entry(root, textvariable=user_input)
 
