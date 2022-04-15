@@ -10,14 +10,13 @@ def get_data():
     return imported_data
 
 
-def search(query):
+def search(column, query):
     df = get_data()
 
     search_terms = query.split(",")
     search_terms = [x.strip(' ') for x in search_terms]
 
-    column = search_terms[0]
-    query = [x for x in search_terms[1:]]
+    query = [x for x in search_terms]
 
     matches = df.loc[(df[column].astype(str).str.contains('|'.join(query), case=False))]
 
@@ -36,9 +35,10 @@ def cmd_search():
 
     print(df.columns.values)
 
-    search_input = input("Enter search terms [column, value(s)] - ")
+    col_search_input = input("Enter column - ")
+    row_search_input = input("Enter value(s) - ")
 
-    search(search_input)
+    search(col_search_input, row_search_input)
 
 
 def cmd_add():
@@ -54,7 +54,11 @@ def cmd_add():
         user_input = [x.strip(' ') for x in user_input]
         new_dish.append(user_input)
 
-    print(new_dish)
+
+
+    df.loc[len(df)] = new_dish
+
+    print(df)
 
 
 def startup_options():
