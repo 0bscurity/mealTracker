@@ -8,7 +8,7 @@ the_list = []
 pd.set_option('display.max_rows', 500)
 pd.set_option('display.max_columns', 500)
 
-tags = ['tag1', 'tag2']
+tags = ["tag1", "tag2"]
 for _ in range(100):
     dataset = {'Dish': fake.name(),
                'Difficulty': random.randrange(1, 10),
@@ -24,4 +24,4 @@ for _ in range(100):
 df = pd.DataFrame(the_list)
 print(df)
 
-df.to_csv('meal_data.csv', index=True)
+df.to_csv('meal_data.csv', index=False)
