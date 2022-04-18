@@ -60,15 +60,15 @@ def edit():
 
     dish_name = input(f"Enter the meal you wish to edit\n -- ")
 
-    search("Dish", dish_name)
+    results = search("Dish", dish_name)
 
-    index = df.index[df["Dish"].astype(str).str.contains(dish_name)].tolist()
+    if len(results) > 1:
+        condition = input(f"Which {dish_name} would you like to delete? Enter link\n -- ")
+        index = df.index[df["Link"].astype(str).str.contains(condition)].tolist()
+    else:
+        index = df.index[df["Dish"].astype(str).str.contains(dish_name)].tolist()
 
-    # if len(index) > 1:
-    #     selection = input(f"There are more than one '{dish_name}'\nPlease type full dish name\n -- ")
-    #     index = df.index[df["Dish"].astype(str).str.contains(selection)].tolist()
-
-    column = input(f"Which column would you like to edit?\n -- ").capitalize()
+    column = input(f"Which column would you like to edit?\n -- ").capitalize().strip(' ')
     replacement = input(f"What would you like the new value to be?\n -- ")
 
     print(index)
@@ -81,9 +81,13 @@ def delete():
 
     dish_name = input(f"Enter the meal you wish to delete\n -- ")
 
-    search("Dish", dish_name)
+    results = search("Dish", dish_name)
 
-    index = df.index[df["Dish"].astype(str).str.contains(dish_name)].tolist()
+    if len(results) > 1:
+        condition = input(f"Which {dish_name} would you like to delete? Enter link\n -- ")
+        index = df.index[df["Link"].astype(str).str.contains(condition)].tolist()
+    else:
+        index = df.index[df["Dish"].astype(str).str.contains(dish_name)].tolist()
 
     confirmation = input(f"Are you sure you want to delete {dish_name}? (y/n)\n -- ")
 
